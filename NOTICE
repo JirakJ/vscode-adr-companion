@@ -1,0 +1,6 @@
+ADR Companion for Visual Studio Code
+Copyright 2026 Jakub Jirák
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+It has no runtime dependencies; the published extension and CLI bundle only
+code from this repository.

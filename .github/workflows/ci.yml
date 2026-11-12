@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run vsix
+      - run: npm run verify-package
+      - name: Lint this repository's own decision records
+        run: node dist/adr-companion-cli.cjs lint --format github
+      - name: ADR governance
+        if: github.event_name == 'pull_request'
+        run: node dist/adr-companion-cli.cjs governance --format github
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vsix
+          path: |
+            *.vsix
+            dist/adr-companion-cli.cjs
+          if-no-files-found: error
+          retention-days: 14

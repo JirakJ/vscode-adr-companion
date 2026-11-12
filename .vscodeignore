@@ -1,0 +1,10 @@
+# Deny by default: only runtime files and Marketplace documentation may ship.
+**
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!NOTICE
+!dist/extension.js
+!dist/adr-companion-cli.cjs
+!media/icon.png

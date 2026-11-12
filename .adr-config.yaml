@@ -1,0 +1,10 @@
+# ADR Companion team configuration (used by this repository itself).
+directory: docs/adr
+defaultFormat: NYGARD
+maxProposedAgeDays: 60
+
+# Changing these without adding or updating a decision record fails CI.
+requireAdrForPaths:
+  - "src/core/**"
+  - "src/node/git.ts"
+  - "esbuild.mjs"

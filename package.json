@@ -1,0 +1,244 @@
+{
+  "name": "adr-companion",
+  "displayName": "ADR Companion — Architecture Decision Records",
+  "description": "Write, link and govern Architecture Decision Records: MADR/Nygard templates, safe renumbering, status lifecycle with supersede links, lint diagnostics, Mermaid/DOT graphs, ADRs from merged PRs and a CI governance check.",
+  "version": "1.0.0",
+  "publisher": "JakubJirak",
+  "author": {
+    "name": "Jakub Jirák"
+  },
+  "license": "Apache-2.0",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other",
+    "Linters",
+    "Visualization"
+  ],
+  "keywords": [
+    "adr",
+    "architecture decision record",
+    "architecture",
+    "decision log",
+    "madr",
+    "nygard",
+    "adr-tools",
+    "documentation",
+    "governance",
+    "mermaid",
+    "graphviz",
+    "rfc"
+  ],
+  "galleryBanner": {
+    "color": "#16202c",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JirakJ/vscode-adr-companion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JirakJ/vscode-adr-companion/issues"
+  },
+  "homepage": "https://github.com/JirakJ/vscode-adr-companion#readme",
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Creating ADRs from merged pull requests and the governance check run git, so they are disabled until the workspace is trusted.",
+      "restrictedConfigurations": [
+        "adrCompanion.customTemplatePath"
+      ]
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "ADR Companion reads decision records from the local file system and runs git."
+    }
+  },
+  "badges": [
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/v/JakubJirak.adr-companion?label=Marketplace&color=1b7f4d",
+      "href": "https://marketplace.visualstudio.com/items?itemName=JakubJirak.adr-companion",
+      "description": "Visual Studio Marketplace version"
+    },
+    {
+      "url": "https://img.shields.io/github/actions/workflow/status/JirakJ/vscode-adr-companion/ci.yml?label=CI",
+      "href": "https://github.com/JirakJ/vscode-adr-companion/actions/workflows/ci.yml",
+      "description": "CI status"
+    }
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "adrCompanion.adrs",
+          "name": "Architecture Decisions",
+          "icon": "$(law)",
+          "contextualTitle": "ADR Companion"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "adrCompanion.adrs",
+        "contents": "No architecture decision records found.\nADR Companion looks in doc/adr, docs/adr, adr, docs/decisions and docs/architecture/decisions, or the directory set in .adr-config.yaml.\n[Create New ADR](command:adrCompanion.createAdr)\n[Create Team Configuration](command:adrCompanion.createConfig)",
+        "when": "!adrCompanion.hasAdrs"
+      }
+    ],
+    "commands": [
+      { "command": "adrCompanion.createAdr", "title": "Create New ADR…", "category": "ADR", "icon": "$(add)" },
+      { "command": "adrCompanion.createAdrFromPr", "title": "Create ADR from Merged Pull Request…", "category": "ADR", "icon": "$(git-pull-request)" },
+      { "command": "adrCompanion.changeStatus", "title": "Change Status…", "category": "ADR" },
+      { "command": "adrCompanion.renumber", "title": "Renumber ADR…", "category": "ADR" },
+      { "command": "adrCompanion.copySummary", "title": "Copy Status Summary (Markdown)", "category": "ADR" },
+      { "command": "adrCompanion.generateIndex", "title": "Generate Index", "category": "ADR" },
+      { "command": "adrCompanion.exportGraph", "title": "Export Relationship Graph (Mermaid / DOT)…", "category": "ADR", "icon": "$(type-hierarchy)" },
+      { "command": "adrCompanion.createConfig", "title": "Create Team Configuration (.adr-config.yaml)", "category": "ADR" },
+      { "command": "adrCompanion.validate", "title": "Validate Decision Records", "category": "ADR", "icon": "$(checklist)" },
+      { "command": "adrCompanion.checkGovernance", "title": "Check Governance (ADR Required for Changed Paths)", "category": "ADR" },
+      { "command": "adrCompanion.linkCode", "title": "Link Code to ADR…", "category": "ADR" },
+      { "command": "adrCompanion.findReferences", "title": "Find Code References to ADR", "category": "ADR" },
+      { "command": "adrCompanion.goToAdr", "title": "Go to ADR…", "category": "ADR", "icon": "$(search)" },
+      { "command": "adrCompanion.setViewMode", "title": "Change View Layout (Status / Timeline / Flat)", "category": "ADR", "icon": "$(list-selection)" },
+      { "command": "adrCompanion.createCiWorkflow", "title": "Create GitHub Actions Governance Workflow", "category": "ADR" },
+      { "command": "adrCompanion.refresh", "title": "Refresh", "category": "ADR", "icon": "$(refresh)" }
+    ],
+    "keybindings": [
+      {
+        "command": "adrCompanion.linkCode",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "adrCompanion.createAdr", "when": "view == adrCompanion.adrs", "group": "navigation@1" },
+        { "command": "adrCompanion.goToAdr", "when": "view == adrCompanion.adrs", "group": "navigation@2" },
+        { "command": "adrCompanion.setViewMode", "when": "view == adrCompanion.adrs", "group": "navigation@3" },
+        { "command": "adrCompanion.refresh", "when": "view == adrCompanion.adrs", "group": "navigation@4" },
+        { "command": "adrCompanion.createAdrFromPr", "when": "view == adrCompanion.adrs", "group": "1_create@1" },
+        { "command": "adrCompanion.validate", "when": "view == adrCompanion.adrs", "group": "2_check@1" },
+        { "command": "adrCompanion.checkGovernance", "when": "view == adrCompanion.adrs", "group": "2_check@2" },
+        { "command": "adrCompanion.generateIndex", "when": "view == adrCompanion.adrs", "group": "3_share@1" },
+        { "command": "adrCompanion.exportGraph", "when": "view == adrCompanion.adrs", "group": "3_share@2" },
+        { "command": "adrCompanion.copySummary", "when": "view == adrCompanion.adrs", "group": "3_share@3" },
+        { "command": "adrCompanion.createConfig", "when": "view == adrCompanion.adrs", "group": "4_setup@1" },
+        { "command": "adrCompanion.createCiWorkflow", "when": "view == adrCompanion.adrs", "group": "4_setup@2" }
+      ],
+      "view/item/context": [
+        { "command": "adrCompanion.changeStatus", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "1_edit@1" },
+        { "command": "adrCompanion.renumber", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "1_edit@2" },
+        { "command": "adrCompanion.findReferences", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "2_nav@1" }
+      ],
+      "editor/context": [
+        { "command": "adrCompanion.changeStatus", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@1" },
+        { "command": "adrCompanion.renumber", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@2" },
+        { "command": "adrCompanion.findReferences", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@3" },
+        { "command": "adrCompanion.linkCode", "when": "resourceLangId != markdown && !editorReadonly", "group": "adr@1" }
+      ]
+    },
+    "configuration": {
+      "title": "ADR Companion",
+      "properties": {
+        "adrCompanion.directory": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "ADR directory relative to the workspace folder. Empty = auto-detect (`doc/adr`, `docs/adr`, `adr`, `docs/decisions`, `docs/architecture/decisions`). A `directory` key in `.adr-config.yaml` overrides this.",
+          "scope": "resource"
+        },
+        "adrCompanion.defaultFormat": {
+          "type": "string",
+          "enum": ["nygard", "madr", "rfc", "y-statement", "tyree-akerman", "custom"],
+          "enumDescriptions": ["Nygard (Classic)", "MADR with YAML front matter", "RFC", "Y-Statement", "Tyree & Akerman", "Your own template file"],
+          "default": "nygard",
+          "description": "Template preselected when creating a new ADR.",
+          "scope": "resource"
+        },
+        "adrCompanion.customTemplatePath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Template file for the Custom format (absolute or relative to the workspace folder). Falls back to `.adr-template.md` / `template.md` in the ADR directory. Placeholders: `{{number}}`, `{{number:0000}}`, `{{title}}`, `{{date}}`, `{{status}}`.",
+          "scope": "resource"
+        },
+        "adrCompanion.maxProposedAgeDays": {
+          "type": "number",
+          "default": 30,
+          "minimum": 1,
+          "description": "A Proposed record older than this many days is reported as stale.",
+          "scope": "resource"
+        },
+        "adrCompanion.stalenessThresholdDays": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Accepted records older than this many days get an informational review reminder. 0 disables it.",
+          "scope": "resource"
+        },
+        "adrCompanion.requireAdrForPaths": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "markdownDescription": "Globs of architecturally significant paths (e.g. `**/api/**`, `**/*.proto`). Changing them without an ADR is flagged by **ADR: Check Governance**. Usually set team-wide in `.adr-config.yaml`.",
+          "scope": "resource"
+        },
+        "adrCompanion.governance.baseRef": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Base ref for **ADR: Check Governance**. Empty = `origin/HEAD`, then `origin/main`, `origin/master`, `main`, `master`.",
+          "scope": "resource"
+        },
+        "adrCompanion.view.mode": {
+          "type": "string",
+          "enum": ["status", "timeline", "flat"],
+          "default": "status",
+          "description": "Layout of the Architecture Decisions view."
+        },
+        "adrCompanion.lint.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show lint diagnostics (missing sections, broken supersede links, duplicate numbers, stale proposals) on decision records."
+        },
+        "adrCompanion.referenceCheck.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Flag `@adr:NNN` annotations in code that point at a missing, deprecated or superseded ADR."
+        },
+        "adrCompanion.statusBar.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the ADR count in the status bar."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "package": "node esbuild.mjs --production",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "icon": "node scripts/gen-icon.mjs",
+    "screenshot": "npm run build && node scripts/gen-screenshot.mjs",
+    "vscode:prepublish": "npm run package",
+    "vsix": "vsce package --no-dependencies",
+    "verify-package": "node scripts/verify-package.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "~1.75.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.28.1",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "vitest": "4.1.12"
+  }
+}
