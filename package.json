@@ -91,22 +91,93 @@
       }
     ],
     "commands": [
-      { "command": "adrCompanion.createAdr", "title": "Create New ADR…", "category": "ADR", "icon": "$(add)" },
-      { "command": "adrCompanion.createAdrFromPr", "title": "Create ADR from Merged Pull Request…", "category": "ADR", "icon": "$(git-pull-request)" },
-      { "command": "adrCompanion.changeStatus", "title": "Change Status…", "category": "ADR" },
-      { "command": "adrCompanion.renumber", "title": "Renumber ADR…", "category": "ADR" },
-      { "command": "adrCompanion.copySummary", "title": "Copy Status Summary (Markdown)", "category": "ADR" },
-      { "command": "adrCompanion.generateIndex", "title": "Generate Index", "category": "ADR" },
-      { "command": "adrCompanion.exportGraph", "title": "Export Relationship Graph (Mermaid / DOT)…", "category": "ADR", "icon": "$(type-hierarchy)" },
-      { "command": "adrCompanion.createConfig", "title": "Create Team Configuration (.adr-config.yaml)", "category": "ADR" },
-      { "command": "adrCompanion.validate", "title": "Validate Decision Records", "category": "ADR", "icon": "$(checklist)" },
-      { "command": "adrCompanion.checkGovernance", "title": "Check Governance (ADR Required for Changed Paths)", "category": "ADR" },
-      { "command": "adrCompanion.linkCode", "title": "Link Code to ADR…", "category": "ADR" },
-      { "command": "adrCompanion.findReferences", "title": "Find Code References to ADR", "category": "ADR" },
-      { "command": "adrCompanion.goToAdr", "title": "Go to ADR…", "category": "ADR", "icon": "$(search)" },
-      { "command": "adrCompanion.setViewMode", "title": "Change View Layout (Status / Timeline / Flat)", "category": "ADR", "icon": "$(list-selection)" },
-      { "command": "adrCompanion.createCiWorkflow", "title": "Create GitHub Actions Governance Workflow", "category": "ADR" },
-      { "command": "adrCompanion.refresh", "title": "Refresh", "category": "ADR", "icon": "$(refresh)" }
+      {
+        "command": "adrCompanion.createAdr",
+        "title": "Create New ADR…",
+        "category": "ADR",
+        "icon": "$(add)"
+      },
+      {
+        "command": "adrCompanion.createAdrFromPr",
+        "title": "Create ADR from Merged Pull Request…",
+        "category": "ADR",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "adrCompanion.changeStatus",
+        "title": "Change Status…",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.renumber",
+        "title": "Renumber ADR…",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.copySummary",
+        "title": "Copy Status Summary (Markdown)",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.generateIndex",
+        "title": "Generate Index",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.exportGraph",
+        "title": "Export Relationship Graph (Mermaid / DOT)…",
+        "category": "ADR",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "adrCompanion.createConfig",
+        "title": "Create Team Configuration (.adr-config.yaml)",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.validate",
+        "title": "Validate Decision Records",
+        "category": "ADR",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "adrCompanion.checkGovernance",
+        "title": "Check Governance (ADR Required for Changed Paths)",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.linkCode",
+        "title": "Link Code to ADR…",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.findReferences",
+        "title": "Find Code References to ADR",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.goToAdr",
+        "title": "Go to ADR…",
+        "category": "ADR",
+        "icon": "$(search)"
+      },
+      {
+        "command": "adrCompanion.setViewMode",
+        "title": "Change View Layout (Status / Timeline / Flat)",
+        "category": "ADR",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "adrCompanion.createCiWorkflow",
+        "title": "Create GitHub Actions Governance Workflow",
+        "category": "ADR"
+      },
+      {
+        "command": "adrCompanion.refresh",
+        "title": "Refresh",
+        "category": "ADR",
+        "icon": "$(refresh)"
+      }
     ],
     "keybindings": [
       {
@@ -118,29 +189,105 @@
     ],
     "menus": {
       "view/title": [
-        { "command": "adrCompanion.createAdr", "when": "view == adrCompanion.adrs", "group": "navigation@1" },
-        { "command": "adrCompanion.goToAdr", "when": "view == adrCompanion.adrs", "group": "navigation@2" },
-        { "command": "adrCompanion.setViewMode", "when": "view == adrCompanion.adrs", "group": "navigation@3" },
-        { "command": "adrCompanion.refresh", "when": "view == adrCompanion.adrs", "group": "navigation@4" },
-        { "command": "adrCompanion.createAdrFromPr", "when": "view == adrCompanion.adrs", "group": "1_create@1" },
-        { "command": "adrCompanion.validate", "when": "view == adrCompanion.adrs", "group": "2_check@1" },
-        { "command": "adrCompanion.checkGovernance", "when": "view == adrCompanion.adrs", "group": "2_check@2" },
-        { "command": "adrCompanion.generateIndex", "when": "view == adrCompanion.adrs", "group": "3_share@1" },
-        { "command": "adrCompanion.exportGraph", "when": "view == adrCompanion.adrs", "group": "3_share@2" },
-        { "command": "adrCompanion.copySummary", "when": "view == adrCompanion.adrs", "group": "3_share@3" },
-        { "command": "adrCompanion.createConfig", "when": "view == adrCompanion.adrs", "group": "4_setup@1" },
-        { "command": "adrCompanion.createCiWorkflow", "when": "view == adrCompanion.adrs", "group": "4_setup@2" }
+        {
+          "command": "adrCompanion.createAdr",
+          "when": "view == adrCompanion.adrs",
+          "group": "navigation@1"
+        },
+        {
+          "command": "adrCompanion.goToAdr",
+          "when": "view == adrCompanion.adrs",
+          "group": "navigation@2"
+        },
+        {
+          "command": "adrCompanion.setViewMode",
+          "when": "view == adrCompanion.adrs",
+          "group": "navigation@3"
+        },
+        {
+          "command": "adrCompanion.refresh",
+          "when": "view == adrCompanion.adrs",
+          "group": "navigation@4"
+        },
+        {
+          "command": "adrCompanion.createAdrFromPr",
+          "when": "view == adrCompanion.adrs",
+          "group": "1_create@1"
+        },
+        {
+          "command": "adrCompanion.validate",
+          "when": "view == adrCompanion.adrs",
+          "group": "2_check@1"
+        },
+        {
+          "command": "adrCompanion.checkGovernance",
+          "when": "view == adrCompanion.adrs",
+          "group": "2_check@2"
+        },
+        {
+          "command": "adrCompanion.generateIndex",
+          "when": "view == adrCompanion.adrs",
+          "group": "3_share@1"
+        },
+        {
+          "command": "adrCompanion.exportGraph",
+          "when": "view == adrCompanion.adrs",
+          "group": "3_share@2"
+        },
+        {
+          "command": "adrCompanion.copySummary",
+          "when": "view == adrCompanion.adrs",
+          "group": "3_share@3"
+        },
+        {
+          "command": "adrCompanion.createConfig",
+          "when": "view == adrCompanion.adrs",
+          "group": "4_setup@1"
+        },
+        {
+          "command": "adrCompanion.createCiWorkflow",
+          "when": "view == adrCompanion.adrs",
+          "group": "4_setup@2"
+        }
       ],
       "view/item/context": [
-        { "command": "adrCompanion.changeStatus", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "1_edit@1" },
-        { "command": "adrCompanion.renumber", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "1_edit@2" },
-        { "command": "adrCompanion.findReferences", "when": "view == adrCompanion.adrs && viewItem == adr", "group": "2_nav@1" }
+        {
+          "command": "adrCompanion.changeStatus",
+          "when": "view == adrCompanion.adrs && viewItem == adr",
+          "group": "1_edit@1"
+        },
+        {
+          "command": "adrCompanion.renumber",
+          "when": "view == adrCompanion.adrs && viewItem == adr",
+          "group": "1_edit@2"
+        },
+        {
+          "command": "adrCompanion.findReferences",
+          "when": "view == adrCompanion.adrs && viewItem == adr",
+          "group": "2_nav@1"
+        }
       ],
       "editor/context": [
-        { "command": "adrCompanion.changeStatus", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@1" },
-        { "command": "adrCompanion.renumber", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@2" },
-        { "command": "adrCompanion.findReferences", "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/", "group": "adr@3" },
-        { "command": "adrCompanion.linkCode", "when": "resourceLangId != markdown && !editorReadonly", "group": "adr@1" }
+        {
+          "command": "adrCompanion.changeStatus",
+          "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/",
+          "group": "adr@1"
+        },
+        {
+          "command": "adrCompanion.renumber",
+          "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/",
+          "group": "adr@2"
+        },
+        {
+          "command": "adrCompanion.findReferences",
+          "when": "resourceLangId == markdown && resourceFilename =~ /^\\d+[-_]/",
+          "group": "adr@3"
+        },
+        {
+          "command": "adrCompanion.linkCode",
+          "when": "resourceLangId != markdown && !editorReadonly",
+          "group": "adr@1"
+        }
       ]
     },
     "configuration": {
@@ -154,8 +301,22 @@
         },
         "adrCompanion.defaultFormat": {
           "type": "string",
-          "enum": ["nygard", "madr", "rfc", "y-statement", "tyree-akerman", "custom"],
-          "enumDescriptions": ["Nygard (Classic)", "MADR with YAML front matter", "RFC", "Y-Statement", "Tyree & Akerman", "Your own template file"],
+          "enum": [
+            "nygard",
+            "madr",
+            "rfc",
+            "y-statement",
+            "tyree-akerman",
+            "custom"
+          ],
+          "enumDescriptions": [
+            "Nygard (Classic)",
+            "MADR with YAML front matter",
+            "RFC",
+            "Y-Statement",
+            "Tyree & Akerman",
+            "Your own template file"
+          ],
           "default": "nygard",
           "description": "Template preselected when creating a new ADR.",
           "scope": "resource"
@@ -182,7 +343,9 @@
         },
         "adrCompanion.requireAdrForPaths": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": [],
           "markdownDescription": "Globs of architecturally significant paths (e.g. `**/api/**`, `**/*.proto`). Changing them without an ADR is flagged by **ADR: Check Governance**. Usually set team-wide in `.adr-config.yaml`.",
           "scope": "resource"
@@ -195,7 +358,11 @@
         },
         "adrCompanion.view.mode": {
           "type": "string",
-          "enum": ["status", "timeline", "flat"],
+          "enum": [
+            "status",
+            "timeline",
+            "flat"
+          ],
           "default": "status",
           "description": "Layout of the Architecture Decisions view."
         },
@@ -240,5 +407,9 @@
     "eslint": "^9.17.0",
     "typescript": "^5.7.2",
     "vitest": "4.1.12"
+  },
+  "overrides": {
+    "glob@13": "^14.0.5",
+    "minimatch@10": "^11.0.8"
   }
 }
